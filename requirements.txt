@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+pymysql
+networkx
+requests
+click
+h11

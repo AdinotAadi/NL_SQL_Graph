@@ -1,0 +1,129 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 2A10-CB90
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph
+
+16-01-2026  00:49    <DIR>          .
+16-01-2026  00:14    <DIR>          ..
+16-01-2026  00:27    <DIR>          .venv
+16-01-2026  00:28    <DIR>          app
+16-01-2026  00:27                79 requirements.txt
+16-01-2026  00:49                 0 test.txt
+               2 File(s)             79 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:49    <DIR>          ..
+16-01-2026  00:28    <DIR>          compiler
+16-01-2026  00:31               300 config.py
+16-01-2026  00:28    <DIR>          db
+16-01-2026  00:28    <DIR>          graph
+16-01-2026  00:28    <DIR>          ir
+16-01-2026  00:28    <DIR>          llm
+16-01-2026  00:35             1,043 main.py
+16-01-2026  00:28    <DIR>          planner
+16-01-2026  00:35    <DIR>          __pycache__
+               2 File(s)          1,343 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\compiler
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:25               476 mysql.py
+16-01-2026  00:28    <DIR>          __pycache__
+               1 File(s)            476 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\compiler\__pycache__
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:28             1,194 mysql.cpython-311.pyc
+               1 File(s)          1,194 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\db
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:25               247 executor.py
+16-01-2026  00:28    <DIR>          __pycache__
+               1 File(s)            247 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\db\__pycache__
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:28             1,080 executor.cpython-311.pyc
+               1 File(s)          1,080 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\graph
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:39             1,509 schema_graph.py
+16-01-2026  00:39    <DIR>          __pycache__
+               1 File(s)          1,509 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\graph\__pycache__
+
+16-01-2026  00:39    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:39             2,122 schema_graph.cpython-311.pyc
+               1 File(s)          2,122 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\ir
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:23               440 models.py
+16-01-2026  00:28    <DIR>          __pycache__
+               1 File(s)            440 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\ir\__pycache__
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:28             1,438 models.cpython-311.pyc
+               1 File(s)          1,438 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\llm
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:42             1,226 planner.py
+16-01-2026  00:42    <DIR>          __pycache__
+               1 File(s)          1,226 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\llm\__pycache__
+
+16-01-2026  00:42    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:42             1,944 planner.cpython-311.pyc
+               1 File(s)          1,944 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\planner
+
+16-01-2026  00:28    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:44             1,272 resolver.py
+16-01-2026  00:44    <DIR>          __pycache__
+               1 File(s)          1,272 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\planner\__pycache__
+
+16-01-2026  00:44    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:44             1,990 resolver.cpython-311.pyc
+               1 File(s)          1,990 bytes
+
+ Directory of C:\Users\patel\OneDrive\Dokumen\Code\Python\NL_SQL_Graph\app\__pycache__
+
+16-01-2026  00:35    <DIR>          .
+16-01-2026  00:28    <DIR>          ..
+16-01-2026  00:31               437 config.cpython-311.pyc
+16-01-2026  00:35             1,911 main.cpython-311.pyc
+               2 File(s)          2,348 bytes
+
+     Total Files Listed:
+            2276 File(s)     43,012,021 bytes
+             830 Dir(s)  388,260,352,000 bytes free
