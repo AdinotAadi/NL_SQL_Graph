@@ -8,7 +8,6 @@ def build_schema_context(db_url: str) -> dict:
     - Table -> columns mapping
     - Foreign-key graph with join metadata
     """
-
     engine = create_engine(db_url)
     graph = nx.DiGraph()
     tables = {}
