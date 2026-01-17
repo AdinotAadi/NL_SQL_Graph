@@ -2,10 +2,8 @@ from urllib.parse import quote_plus
 from fastapi import FastAPI, HTTPException
 
 from app.config import DATABASES
-from app.llm.planner import generate_ir
-from app.graph.schema_graph import build_schema_graph
-from app.planner.resolver import resolve_query
-from app.compiler.mysql import compile_sql
+from app.graph.schema_graph import build_schema_context
+from app.llm.planner import generate_sql
 from app.db.executor import execute_sql
 
 app = FastAPI()
@@ -14,11 +12,14 @@ schema_cache = {}
 
 @app.post("/query")
 def query_db(payload: dict):
-    try:
-        db_name = payload["database"]
-        user_query = payload["query"]
-    except KeyError:
-        raise HTTPException(status_code=400, detail="Payload must contain database and query")
+    if "database" not in payload or "query" not in payload:
+        raise HTTPException(
+            status_code=400,
+            detail="Payload must contain 'database' and 'query'"
+        )
+
+    db_name = payload["database"]
+    user_query = payload["query"]
 
     if db_name not in DATABASES:
         raise HTTPException(status_code=400, detail="Unknown database")
@@ -32,15 +33,15 @@ def query_db(payload: dict):
     )
 
     if db_name not in schema_cache:
-        schema_cache[db_name] = build_schema_graph(db_url)
+        schema_cache[db_name] = build_schema_context(db_url)
 
-    ir = generate_ir(user_query)
-    plan = resolve_query(ir, schema_cache[db_name])
-    sql = compile_sql(plan)
+    schema_context = schema_cache[db_name]
+
+    sql = generate_sql(user_query, schema_context)
+
     data = execute_sql(db_url, sql)
 
     return {
-        "ir": ir,
         "sql": sql,
         "data": data
     }

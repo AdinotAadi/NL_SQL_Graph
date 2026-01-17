@@ -2,21 +2,34 @@ import networkx as nx
 from sqlalchemy import create_engine, text
 
 
-def build_schema_graph(db_url: str) -> nx.DiGraph:
+def build_schema_context(db_url: str) -> dict:
     """
-    Builds a directed schema graph from MySQL foreign key metadata.
-
-    Edge direction:
-        referenced_table  -->  table_with_fk
-
-    Edge attribute:
-        join_on = (left_column, right_column)
+    Builds:
+    - Table -> columns mapping
+    - Foreign-key graph with join metadata
     """
+
     engine = create_engine(db_url)
     graph = nx.DiGraph()
+    tables = {}
 
     with engine.connect() as conn:
-        result = conn.execute(
+        # --- Load columns ---
+        cols = conn.execute(
+            text("""
+                SELECT
+                    table_name  AS table_name,
+                    column_name AS column_name
+                FROM information_schema.columns
+                WHERE table_schema = DATABASE()
+            """)
+        ).mappings()
+
+        for row in cols:
+            tables.setdefault(row["table_name"], []).append(row["column_name"])
+
+        # --- Load foreign keys ---
+        fks = conn.execute(
             text("""
                 SELECT
                     table_name               AS table_name,
@@ -29,19 +42,17 @@ def build_schema_graph(db_url: str) -> nx.DiGraph:
             """)
         ).mappings()
 
-        for row in result:
-            referenced_table = row["referenced_table"]
-            table = row["table_name"]
-            referenced_column = row["referenced_column"]
-            column = row["column_name"]
-
+        for row in fks:
             graph.add_edge(
-                referenced_table,
-                table,
+                row["referenced_table"],
+                row["table_name"],
                 join_on=(
-                    f"{referenced_table}.{referenced_column}",
-                    f"{table}.{column}"
+                    f"{row['referenced_table']}.{row['referenced_column']}",
+                    f"{row['table_name']}.{row['column_name']}"
                 )
             )
 
-    return graph
+    return {
+        "tables": tables,
+        "graph": graph
+    }

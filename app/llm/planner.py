@@ -5,25 +5,36 @@ import requests
 from app.config import OLLAMA_URL, OLLAMA_MODEL
 
 
-def generate_ir(user_query: str) -> dict:
+def generate_sql(user_query: str, schema_context: dict) -> str:
+    tables = schema_context["tables"]
+    graph = schema_context["graph"]
+
+    schema_description = []
+    for table, cols in tables.items():
+        schema_description.append(f"{table}({', '.join(cols)})")
+
+    fk_description = []
+    for u, v, data in graph.edges(data=True):
+        left, right = data["join_on"]
+        fk_description.append(f"{left} = {right}")
+
     prompt = f"""
-You convert natural language questions into a semantic JSON query intent.
+You are an expert SQL generator.
+
+DATABASE SCHEMA:
+{chr(10).join(schema_description)}
+
+FOREIGN KEY JOINS:
+{chr(10).join(fk_description)}
 
 RULES:
-- Output ONLY valid JSON
-- No explanations
-- No markdown
-- No backticks
+- Generate ONLY a single valid MySQL SELECT statement
+- Use correct joins based on foreign keys
+- Do NOT hallucinate tables or columns
+- Do NOT use UPDATE, DELETE, INSERT
+- No markdown, no explanations
 
-JSON SCHEMA:
-{{
-  "entity": "Customer | Film | Actor | Rental",
-  "metric": "Revenue | Count | List",
-  "time_range": "last_month | all_time | null",
-  "limit": number
-}}
-
-Question:
+QUESTION:
 {user_query}
 """
 
@@ -38,17 +49,11 @@ Question:
     )
 
     response.raise_for_status()
+
     raw = response.json().get("response", "").strip()
+    raw = re.sub(r"^```sql|```$", "", raw, flags=re.MULTILINE).strip()
 
-    raw = re.sub(r"^```json|```$", "", raw, flags=re.MULTILINE).strip()
+    if not raw.lower().startswith("select"):
+        raise ValueError("LLM did not return a SELECT statement")
 
-    try:
-        ir = json.loads(raw)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON from LLM:\n{raw}") from e
-
-    # Defensive defaults
-    ir.setdefault("time_range", None)
-    ir.setdefault("limit", 10)
-
-    return ir
+    return raw
